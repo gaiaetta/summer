@@ -14,120 +14,132 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #f8fafc;
     }
+    /* Classe per nascondere elementi solo nel PDF */
+    .hide-on-pdf {
+      display: initial;
+    }
+    body.generating-pdf .hide-on-pdf {
+      display: none !important;
+    }
   </style>
 </head>
 <body class="p-4 md:p-8 max-w-3xl mx-auto text-slate-800">
 
-  <!-- Area Esportazione PDF -->
-  <div id="pdf-content" class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
-    
-    <!-- Header -->
-    <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          Shopping con Summer 🛍️
-        </h1>
-        <p class="text-sm text-slate-500 mt-1" id="current-date"></p>
-      </div>
-      <span class="bg-pink-50 text-pink-600 font-semibold px-3 py-1 rounded-full text-xs border border-pink-100">
-        Budget Totale: 220,00 €
-      </span>
-    </div>
+  <!-- Wrapper Principale (Incluso nel PDF) -->
+  <div id="full-app-content">
 
-    <!-- Cards Budget -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-      <!-- Card Shopping -->
-      <div class="bg-gradient-to-br from-pink-500 to-rose-500 text-white p-5 rounded-2xl shadow-lg shadow-pink-500/20">
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-xs uppercase tracking-wider text-pink-100 font-bold">Shopping 👗</span>
-          <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full">Iniziale: 200 €</span>
-        </div>
-        <div class="text-3xl font-extrabold mb-1" id="shop-remaining">200,00 €</div>
-        <div class="text-xs text-pink-100">Rimanenti (Spesi: <span id="shop-spent">0,00 €</span>)</div>
-        <div class="w-full bg-black/10 h-2 rounded-full mt-3 overflow-hidden">
-          <div id="shop-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
-        </div>
-      </div>
-
-      <!-- Card Pranzo -->
-      <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-white p-5 rounded-2xl shadow-lg shadow-orange-500/20">
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-xs uppercase tracking-wider text-amber-100 font-bold">Pranzo 🍕</span>
-          <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full">Iniziale: 20 €</span>
-        </div>
-        <div class="text-3xl font-extrabold mb-1" id="food-remaining">20,00 €</div>
-        <div class="text-xs text-amber-100">Rimanenti (Spesi: <span id="food-spent">0,00 €</span>)</div>
-        <div class="w-full bg-black/10 h-2 rounded-full mt-3 overflow-hidden">
-          <div id="food-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Lista Spese -->
-    <div>
-      <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center justify-between">
-        Registro Spese
-        <span class="text-xs font-normal text-slate-400" id="item-count">0 acquisti</span>
-      </h2>
-      <div id="expense-list" class="space-y-2 min-h-[100px]">
-        <div id="empty-state" class="text-center py-8 text-slate-400 text-sm border-2 border-dashed border-slate-100 rounded-2xl">
-          Nessuna spesa registrata finora.<br>Aggiungi il primo acquisto qui sotto!
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Form di Inserimento Spesa -->
-  <div class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
-    <h3 class="text-md font-bold text-slate-900 mb-4">Aggiungi Nuova Spesa</h3>
-    <form id="expense-form" class="space-y-4">
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Negozio e Articolo</label>
-        <input type="text" id="desc" placeholder="Es. Zara - T-shirt rosa / McDonald's - Pranzo" required 
-               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Header & Summary Cards -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
+      
+      <!-- Header -->
+      <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
         <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Importo (€)</label>
-          <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required 
-                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
+          <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            Shopping con Summer 🛍️
+          </h1>
+          <p class="text-sm text-slate-500 mt-1" id="current-date"></p>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Categoria Budget</label>
-          <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-pink-500 has-[:checked]:bg-pink-50 has-[:checked]:text-pink-600 border-slate-200 text-slate-600">
-              <input type="radio" name="category" value="shopping" checked class="hidden">
-              👗 Shopping
-            </label>
-            <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50 has-[:checked]:text-amber-600 border-slate-200 text-slate-600">
-              <input type="radio" name="category" value="food" class="hidden">
-              🍕 Pranzo / Cibo
-            </label>
+        <span class="bg-pink-50 text-pink-600 font-semibold px-3 py-1 rounded-full text-xs border border-pink-100">
+          Budget Totale: 220,00 €
+        </span>
+      </div>
+
+      <!-- Cards Budget -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Card Shopping -->
+        <div class="bg-gradient-to-br from-pink-500 to-rose-500 text-white p-5 rounded-2xl shadow-lg shadow-pink-500/20">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs uppercase tracking-wider text-pink-100 font-bold">Shopping 👗</span>
+            <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full">Iniziale: 200 €</span>
+          </div>
+          <div class="text-3xl font-extrabold mb-1" id="shop-remaining">200,00 €</div>
+          <div class="text-xs text-pink-100">Rimanenti (Spesi: <span id="shop-spent">0,00 €</span>)</div>
+          <div class="w-full bg-black/10 h-2 rounded-full mt-3 overflow-hidden">
+            <div id="shop-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Card Pranzo -->
+        <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-white p-5 rounded-2xl shadow-lg shadow-orange-500/20">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs uppercase tracking-wider text-amber-100 font-bold">Pranzo 🍕</span>
+            <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full">Iniziale: 20 €</span>
+          </div>
+          <div class="text-3xl font-extrabold mb-1" id="food-remaining">20,00 €</div>
+          <div class="text-xs text-amber-100">Rimanenti (Spesi: <span id="food-spent">0,00 €</span>)</div>
+          <div class="w-full bg-black/10 h-2 rounded-full mt-3 overflow-hidden">
+            <div id="food-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
 
-      <button type="submit" 
-              class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-all text-sm shadow-md active:scale-[0.99]">
-        Aggiungi Spesa
-      </button>
-    </form>
-  </div>
+      <!-- Lista Spese -->
+      <div>
+        <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center justify-between">
+          Registro Spese
+          <span class="text-xs font-normal text-slate-400" id="item-count">0 acquisti</span>
+        </h2>
+        <div id="expense-list" class="space-y-2 min-h-[100px]">
+          <div id="empty-state" class="text-center py-8 text-slate-400 text-sm border-2 border-dashed border-slate-100 rounded-2xl">
+            Nessuna spesa registrata finora.<br>Aggiungi il primo acquisto qui sotto!
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Azioni -->
-  <div class="flex flex-col sm:flex-row gap-3">
-    <button onclick="exportPDF()" 
-            class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3.5 px-4 rounded-2xl shadow-lg shadow-pink-500/25 transition-all text-sm text-center flex items-center justify-center gap-2">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-      Scarica Report PDF
-    </button>
-    
-    <button onclick="clearAllData()" 
-            class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold py-3.5 px-4 rounded-2xl transition-all text-sm border border-rose-100 flex items-center justify-center gap-2">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-      Azzera Giornata
-    </button>
+    <!-- Form di Inserimento Spesa -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
+      <h3 class="text-md font-bold text-slate-900 mb-4">Aggiungi Nuova Spesa</h3>
+      <form id="expense-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Negozio e Articolo</label>
+          <input type="text" id="desc" placeholder="Es. Zara - T-shirt rosa / McDonald's - Pranzo" required 
+                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Importo (€)</label>
+            <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required 
+                   class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Categoria Budget</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-pink-500 has-[:checked]:bg-pink-50 has-[:checked]:text-pink-600 border-slate-200 text-slate-600">
+                <input type="radio" name="category" value="shopping" checked class="hidden">
+                👗 Shopping
+              </label>
+              <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50 has-[:checked]:text-amber-600 border-slate-200 text-slate-600">
+                <input type="radio" name="category" value="food" class="hidden">
+                🍕 Pranzo / Cibo
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" 
+                class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-all text-sm shadow-md active:scale-[0.99]">
+          Aggiungi Spesa
+        </button>
+      </form>
+    </div>
+
+    <!-- Azioni -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="exportPDF()" 
+              class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3.5 px-4 rounded-2xl shadow-lg shadow-pink-500/25 transition-all text-sm text-center flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        Scarica Report PDF
+      </button>
+      
+      <button onclick="clearAllData()" 
+              class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold py-3.5 px-4 rounded-2xl transition-all text-sm border border-rose-100 flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+        Azzera Giornata
+      </button>
+    </div>
+
   </div>
 
   <script>
@@ -213,7 +225,7 @@
       document.getElementById('shop-bar').style.width = Math.min((spentShopping / BUDGET_SHOPPING) * 100, 100) + '%';
       document.getElementById('food-bar').style.width = Math.min((spentFood / BUDGET_FOOD) * 100, 100) + '%';
 
-      // Conteggio voci
+      // Conteggio broad
       document.getElementById('item-count').innerText = `${expenses.length} acquist${expenses.length === 1 ? 'o' : 'i'}`;
 
       // Rendering Lista
@@ -234,7 +246,7 @@
             </div>
             <div class="flex items-center gap-3">
               <span class="font-bold text-slate-900 text-sm">-${item.amount.toFixed(2).replace('.', ',')} €</span>
-              <button onclick="removeExpense(${item.id})" class="delete-btn text-slate-300 hover:text-rose-500 transition-colors p-1" title="Elimina">
+              <button onclick="removeExpense(${item.id})" class="hide-on-pdf text-slate-300 hover:text-rose-500 transition-colors p-1" title="Elimina">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </button>
             </div>
@@ -243,29 +255,28 @@
       }
     }
 
-    // Esporta in PDF
+    // Esporta l'intera applicazione in PDF
     function exportPDF() {
-      const element = document.getElementById('pdf-content');
+      const element = document.getElementById('full-app-content');
       
-      // Nasconde i pulsanti "Elimina" durante la generazione del PDF
-      const deleteButtons = element.querySelectorAll('.delete-btn');
-      deleteButtons.forEach(btn => btn.style.display = 'none');
+      // Attiva la classe per nascondere i cestini d'eliminazione durante lo scatto
+      document.body.classList.add('generating-pdf');
 
       const opt = {
-        margin:       10,
-        filename:     `Shopping_Summer_${new Date().toISOString().slice(0,10)}.pdf`,
+        margin:       [10, 10, 10, 10],
+        filename:     `Shopping_Summer_Report_${new Date().toISOString().slice(0,10)}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
       html2pdf().set(opt).from(element).save().then(() => {
-        // Ripristina i pulsanti
-        deleteButtons.forEach(btn => btn.style.display = 'block');
+        // Ripristina l'interfaccia rimuovendo la classe
+        document.body.classList.remove('generating-pdf');
       });
     }
 
-    // Caricamento iniziale dei dati salvati
+    // Caricamento iniziale dei dati
     updateUI();
   </script>
 </body>
