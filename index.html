@@ -3,312 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Day con Summer 🛍️</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Skincare Routine Personalizzata</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f8fafc;
+    :root {
+      --primary: #d8839d;
+      --primary-dark: #b85b77;
+      --bg-light: #fdf8f9;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --border: #f0d8e1;
     }
 
-    /* Stili per la stampa / salvataggio PDF */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      color: var(--primary-dark);
+      margin: 0 0 10px 0;
+      font-size: 26px;
+    }
+
+    .diagnosis {
+      background-color: #f8ecef;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      background: #fafafa;
+    }
+
+    .card h2 {
+      color: var(--primary-dark);
+      font-size: 18px;
+      margin-top: 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    ol, ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fdf8f9;
+    }
+
+    .btn-print {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover {
+      background-color: var(--primary-dark);
+    }
+
     @media print {
-      @page {
-        size: A4 portrait;
-        margin: 12mm;
-      }
-      
       body {
-        background-color: #ffffff !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+        background-color: white;
+        padding: 0;
       }
-
-      .no-print {
-        display: none !important;
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
       }
-
-      .print-clean {
-        box-shadow: none !important;
-        border: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      .no-break {
-        break-inside: avoid;
+      .btn-print {
+        display: none;
       }
     }
   </style>
 </head>
-<body class="p-4 md:p-8 max-w-3xl mx-auto text-slate-800">
+<body>
 
-  <!-- Contenitore Principale Report -->
-  <div class="print-clean bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
-    
-    <!-- Header -->
-    <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          Shopping con Summer 🛍️
-        </h1>
-        <p class="text-sm text-slate-500 mt-1" id="current-date"></p>
+  <div class="container">
+    <button class="btn-print" onclick="window.print()">🖨️ Stampa o Salva in PDF</button>
+
+    <header>
+      <h1>Skincare Routine Personalizzata</h1>
+      <div class="diagnosis">
+        <strong>Pelle:</strong> Grassa ma disidratata / asfittica | <strong>Obiettivo:</strong> Ripristinare la barriera idrica, eliminare la sensazione di pelle che tira, regolare il sebo e pulire i pori[span_0](start_span)[span_0](end_span).
       </div>
-      <span class="bg-slate-100 text-slate-700 font-bold px-3 py-1.5 rounded-full text-xs border border-slate-200">
-        Budget Iniziale: 220,00 €
-      </span>
-    </div>
+    </header>
 
-    <!-- RIEPILOGO TOTALE GENERALE (IN ALTO) -->
-    <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-lg mb-6 no-break grid grid-cols-2 gap-4 text-center">
-      <div class="border-r border-slate-700/60 pr-2">
-        <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Totale Speso</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-rose-400" id="grand-total-spent">0,00 €</div>
-      </div>
-      <div class="pl-2">
-        <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Totale Rimanente</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-emerald-400" id="grand-total-remaining">220,00 €</div>
-      </div>
-    </div>
-
-    <!-- CARDS BUDGET PER CATEGORIA -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 no-break">
-      <!-- Card Shopping -->
-      <div class="bg-gradient-to-br from-pink-500 to-rose-500 text-white p-5 rounded-2xl shadow-lg shadow-pink-500/20">
-        <div class="flex justify-between items-center mb-3">
-          <span class="text-xs uppercase tracking-wider text-pink-100 font-extrabold flex items-center gap-1">
-            👗 Shopping
-          </span>
-          <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full font-medium">Iniziale: 200,00 €</span>
-        </div>
-        
-        <div class="grid grid-cols-2 gap-2 border-t border-white/10 pt-3 mt-1">
-          <div>
-            <span class="text-[10px] uppercase tracking-wider text-pink-200 font-bold block">Spesi</span>
-            <div class="text-xl md:text-2xl font-extrabold text-white" id="shop-spent">0,00 €</div>
-          </div>
-          <div>
-            <span class="text-[10px] uppercase tracking-wider text-pink-200 font-bold block">Rimanenti</span>
-            <div class="text-xl md:text-2xl font-extrabold text-pink-100" id="shop-remaining">200,00 €</div>
-          </div>
-        </div>
-
-        <div class="w-full bg-black/10 h-2 rounded-full mt-4 overflow-hidden">
-          <div id="shop-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
-        </div>
+    <div class="grid">
+      <!-- MATTINA -->
+      <div class="card">
+        <h2>☀️ Routine Mattutina (3 Step)</h2>
+        <ol>
+          <li><strong>Detersione:</strong> Acqua tiepida o minima noce di <em>COSRX Low pH Gel Cleanser</em>[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).</li>
+          <li><strong>Siero:</strong> <em>Primark PS... Just Peachy</em> (Vit. C + Niacinamide) su pelle umida[span_3](start_span)[span_3](end_span).</li>
+          <li><strong>Idratazione:</strong> <em>Garnier Salicylic Fresh & Matte</em> crema sorbetto.</li>
+        </ol>
       </div>
 
-      <!-- Card Pranzo -->
-      <div class="bg-gradient-to-br from-amber-500 to-orange-500 text-white p-5 rounded-2xl shadow-lg shadow-orange-500/20">
-        <div class="flex justify-between items-center mb-3">
-          <span class="text-xs uppercase tracking-wider text-amber-100 font-extrabold flex items-center gap-1">
-            🍕 Pranzo / Cibo
-          </span>
-          <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full font-medium">Iniziale: 20,00 €</span>
-        </div>
-        
-        <div class="grid grid-cols-2 gap-2 border-t border-white/10 pt-3 mt-1">
-          <div>
-            <span class="text-[10px] uppercase tracking-wider text-amber-200 font-bold block">Spesi</span>
-            <div class="text-xl md:text-2xl font-extrabold text-white" id="food-spent">0,00 €</div>
-          </div>
-          <div>
-            <span class="text-[10px] uppercase tracking-wider text-amber-200 font-bold block">Rimanenti</span>
-            <div class="text-xl md:text-2xl font-extrabold text-amber-100" id="food-remaining">20,00 €</div>
-          </div>
-        </div>
-
-        <div class="w-full bg-black/10 h-2 rounded-full mt-4 overflow-hidden">
-          <div id="food-bar" class="bg-white h-full transition-all duration-300" style="width: 0%"></div>
-        </div>
+      <!-- SERA GENERALITÀ -->
+      <div class="card">
+        <h2>🌙 Routine Serale (3-4 Step)</h2>
+        <ul>
+          <li><strong>Step 1 Detersione:</strong> <em>COSRX Low pH Gel Cleanser</em>[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span).</li>
+          <li><strong>Step 2 Attivo:</strong> Rotazione A / B / C (vedi programma settimanale)[span_6](start_span)[span_6](end_span).</li>
+          <li><strong>Step 3 Contorno Occhi:</strong> <em>Puca Roll-On</em> o <em>SPA Exclusives Cream</em>[span_7](start_span)[span_7](end_span).</li>
+          <li><strong>Step 4 Idratazione:</strong> <em>Garnier Salicylic Fresh & Matte</em>.</li>
+        </ul>
       </div>
     </div>
 
-    <!-- Lista Spese -->
-    <div>
-      <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center justify-between">
-        Registro Spese
-        <span class="text-xs font-normal text-slate-400" id="item-count">0 acquisti</span>
-      </h2>
-      <div id="expense-list" class="space-y-2 min-h-[100px]">
-        <div id="empty-state" class="text-center py-8 text-slate-400 text-sm border-2 border-dashed border-slate-100 rounded-2xl">
-          Nessuna spesa registrata finora.<br>Aggiungi il primo acquisto qui sotto!
-        </div>
-      </div>
-    </div>
+    <!-- TABELLA SETTIMANALE -->
+    <h2 style="color: var(--primary-dark); font-size: 20px;">📅 Programma Settimanale Dettagliato</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Giorno</th>
+          <th>Sera (Trattamento Attivo)</th>
+          <th>Maschera / Extra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lunedì</strong></td>
+          <td><strong>Sera A:</strong> Garnier PureActive Salicylic Liquid (Pori & Punti Neri)[span_8](start_span)[span_8](end_span)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>Martedì</strong></td>
+          <td><strong>Sera B:</strong> Balea Beauty Collagen Retinol Serum[span_9](start_span)[span_9](end_span)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>Mercoledì</strong></td>
+          <td><strong>Sera A:</strong> Garnier PureActive Salicylic Liquid[span_10](start_span)[span_10](end_span)</td>
+          <td><strong>Detox:</strong> Beauty of Joseon / Vichy Charbon solo T-Zone (10 min)[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)</td>
+        </tr>
+        <tr>
+          <td><strong>Giovedì</strong></td>
+          <td><strong>Sera B:</strong> Balea Beauty Collagen Retinol Serum[span_13](start_span)[span_13](end_span)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>Venerdì</strong></td>
+          <td><strong>Sera A:</strong> Garnier PureActive Salicylic Liquid[span_14](start_span)[span_14](end_span)</td>
+          <td><strong>Patch:</strong> Chiringuito Patch T-Zone + Hydrogel Occhi[span_15](start_span)[span_15](end_span)</td>
+        </tr>
+        <tr>
+          <td><strong>Sabato</strong></td>
+          <td><strong>Sera B:</strong> Balea Beauty Collagen Retinol Serum[span_16](start_span)[span_16](end_span)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>Domenica</strong></td>
+          <td><strong>Sera C (Riposo):</strong> Solo idratazione, NO acidi / NO retinolo</td>
+          <td><strong>Glass Skin:</strong> Biodance / COSRX Hydrogel Mask</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 
-  <!-- Form di Inserimento Spesa -->
-  <div class="no-print bg-white p-6 rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 mb-6">
-    <h3 class="text-md font-bold text-slate-900 mb-4">Aggiungi Nuova Spesa</h3>
-    <form id="expense-form" class="space-y-4">
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Negozio e Articolo</label>
-        <input type="text" id="desc" placeholder="Es. Zara - T-shirt rosa / McDonald's - Menù" required 
-               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Importo (€)</label>
-          <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required 
-                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Categoria Budget</label>
-          <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-pink-500 has-[:checked]:bg-pink-50 has-[:checked]:text-pink-600 border-slate-200 text-slate-600">
-              <input type="radio" name="category" value="shopping" checked class="hidden">
-              👗 Shopping
-            </label>
-            <label class="flex items-center justify-center gap-2 p-2.5 border rounded-xl cursor-pointer text-sm font-medium transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50 has-[:checked]:text-amber-600 border-slate-200 text-slate-600">
-              <input type="radio" name="category" value="food" class="hidden">
-              🍕 Pranzo / Cibo
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button type="submit" 
-              class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-all text-sm shadow-md active:scale-[0.99]">
-        Aggiungi Spesa
-      </button>
-    </form>
-  </div>
-
-  <!-- Azioni -->
-  <div class="no-print flex flex-col sm:flex-row gap-3">
-    <button onclick="exportPDF()" 
-            class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3.5 px-4 rounded-2xl shadow-lg shadow-pink-500/25 transition-all text-sm text-center flex items-center justify-center gap-2">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-      Scarica Report PDF
-    </button>
-    
-    <button onclick="clearAllData()" 
-            class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold py-3.5 px-4 rounded-2xl transition-all text-sm border border-rose-100 flex items-center justify-center gap-2">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-      Azzera Giornata
-    </button>
-  </div>
-
-  <script>
-    const BUDGET_SHOPPING = 200.00;
-    const BUDGET_FOOD = 20.00;
-    const BUDGET_TOTAL = BUDGET_SHOPPING + BUDGET_FOOD;
-    
-    let expenses = JSON.parse(localStorage.getItem('summer_shopping_expenses')) || [];
-
-    document.getElementById('current-date').innerText = new Date().toLocaleDateString('it-IT', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-
-    function saveData() {
-      localStorage.setItem('summer_shopping_expenses', JSON.stringify(expenses));
-    }
-
-    document.getElementById('expense-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const desc = document.getElementById('desc').value.trim();
-      const amount = parseFloat(document.getElementById('amount').value);
-      const category = document.querySelector('input[name="category"]:checked').value;
-
-      if (!desc || isNaN(amount) || amount <= 0) return;
-
-      expenses.push({
-        id: Date.now(),
-        desc,
-        amount,
-        category,
-        time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
-      });
-
-      saveData();
-      document.getElementById('desc').value = '';
-      document.getElementById('amount').value = '';
-      updateUI();
-    });
-
-    function removeExpense(id) {
-      expenses = expenses.filter(item => item.id !== id);
-      saveData();
-      updateUI();
-    }
-
-    function clearAllData() {
-      if (confirm('Sei sicura di voler cancellare tutte le spese registrate?')) {
-        expenses = [];
-        saveData();
-        updateUI();
-      }
-    }
-
-    function updateUI() {
-      const listContainer = document.getElementById('expense-list');
-      const emptyState = document.getElementById('empty-state');
-      
-      const spentShopping = expenses.filter(e => e.category === 'shopping').reduce((acc, curr) => acc + curr.amount, 0);
-      const spentFood = expenses.filter(e => e.category === 'food').reduce((acc, curr) => acc + curr.amount, 0);
-
-      const remShopping = BUDGET_SHOPPING - spentShopping;
-      const remFood = BUDGET_FOOD - spentFood;
-
-      const grandTotalSpent = spentShopping + spentFood;
-      const grandTotalRemaining = BUDGET_TOTAL - grandTotalSpent;
-
-      // Aggiorna Totale Generale in Alto
-      document.getElementById('grand-total-spent').innerText = grandTotalSpent.toFixed(2).replace('.', ',') + ' €';
-      document.getElementById('grand-total-remaining').innerText = grandTotalRemaining.toFixed(2).replace('.', ',') + ' €';
-
-      // Aggiorna Categorie
-      document.getElementById('shop-spent').innerText = spentShopping.toFixed(2).replace('.', ',') + ' €';
-      document.getElementById('shop-remaining').innerText = remShopping.toFixed(2).replace('.', ',') + ' €';
-      
-      document.getElementById('food-spent').innerText = spentFood.toFixed(2).replace('.', ',') + ' €';
-      document.getElementById('food-remaining').innerText = remFood.toFixed(2).replace('.', ',') + ' €';
-
-      // Aggiorna Barre
-      document.getElementById('shop-bar').style.width = Math.min((spentShopping / BUDGET_SHOPPING) * 100, 100) + '%';
-      document.getElementById('food-bar').style.width = Math.min((spentFood / BUDGET_FOOD) * 100, 100) + '%';
-
-      document.getElementById('item-count').innerText = `${expenses.length} acquist${expenses.length === 1 ? 'o' : 'i'}`;
-
-      if (expenses.length === 0) {
-        listContainer.innerHTML = '';
-        listContainer.appendChild(emptyState);
-      } else {
-        listContainer.innerHTML = expenses.map(item => `
-          <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-100 no-break">
-            <div class="flex items-center gap-3">
-              <span class="text-lg p-2 rounded-xl ${item.category === 'shopping' ? 'bg-pink-100 text-pink-600' : 'bg-amber-100 text-amber-600'}">
-                ${item.category === 'shopping' ? '👗' : '🍕'}
-              </span>
-              <div>
-                <div class="font-semibold text-slate-800 text-sm">${item.desc}</div>
-                <div class="text-xs text-slate-400">${item.time} • ${item.category === 'shopping' ? 'Shopping' : 'Pranzo'}</div>
-              </div>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-slate-900 text-sm">-${item.amount.toFixed(2).replace('.', ',')} €</span>
-              <button onclick="removeExpense(${item.id})" class="no-print text-slate-300 hover:text-rose-500 transition-colors p-1" title="Elimina">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-              </button>
-            </div>
-          </div>
-        `).join('');
-      }
-    }
-
-    function exportPDF() {
-      window.print();
-    }
-
-    updateUI();
-  </script>
 </body>
 </html>
