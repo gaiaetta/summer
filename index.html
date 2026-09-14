@@ -2,370 +2,413 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Skincare Routine Personalizzata & Project Pan</title>
+    <title>Skincare Routine AuDHD - Gaia</title>
     <style>
         @page {
             size: A4;
-            margin: 15mm 15mm 15mm 15mm;
+            margin: 12mm;
         }
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #333333;
-            line-height: 1.4;
-            font-size: 9.5pt;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.35;
+            font-size: 9pt;
             background-color: #ffffff;
             margin: 0;
             padding: 0;
         }
-        
-        /* Header */
-        .header {
-            border-bottom: 2px solid #e08b97;
-            padding-bottom: 8px;
+
+        /* Top Banner Focus */
+        .audhd-banner {
+            background-color: #f1f5f9;
+            border-left: 6px solid #6366f1;
+            padding: 8px 12px;
             margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            border-radius: 4px;
         }
-        .title {
-            font-size: 18pt;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 0;
+        .audhd-banner h1 {
+            margin: 0 0 2px 0;
+            font-size: 14pt;
+            color: #0f172a;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .subtitle {
-            font-size: 10pt;
-            color: #e08b97;
+        .audhd-banner p {
+            margin: 0;
+            font-size: 8.5pt;
+            color: #475569;
             font-weight: 600;
-            margin-top: 2px;
-        }
-        .meta-info {
-            text-align: right;
-            font-size: 8pt;
-            color: #7f8c8d;
         }
 
-        /* Target Box */
-        .target-box {
-            background-color: #fdf2f4;
-            border-left: 4px solid #e08b97;
-            padding: 8px 12px;
+        /* Rules Box (Basso Carico Mentale) */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
             margin-bottom: 12px;
-            border-radius: 0 4px 4px 0;
         }
-        .target-box p {
-            margin: 2px 0;
-            font-size: 9pt;
+        .rule-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 8px;
+            text-align: center;
+        }
+        .rule-card strong {
+            display: block;
+            color: #4f46e5;
+            font-size: 8.5pt;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+        .rule-card span {
+            font-size: 8pt;
+            color: #64748b;
         }
 
-        /* Section Headings */
+        /* Section Titles */
         h2 {
-            font-size: 11pt;
-            color: #2c3e50;
-            border-bottom: 1px solid #dcdde1;
-            padding-bottom: 3px;
+            font-size: 10.5pt;
+            color: #0f172a;
+            background-color: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
             margin-top: 10px;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border-left: 4px solid #3b82f6;
         }
 
-        /* Tables */
+        /* Daily Routines Grid */
+        .routine-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .routine-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            background-color: #ffffff;
+        }
+        .routine-box.am { border-color: #fde047; background-color: #fefce8; }
+        .routine-box.pm { border-color: #cbd5e1; background-color: #f8fafc; }
+
+        .routine-title {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .am .routine-title { color: #a16207; }
+        .pm .routine-title { color: #334155; }
+
+        .step-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .step-item {
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #6366f1;
+            font-size: 9pt;
+        }
+        .step-item strong {
+            color: #0f172a;
+        }
+
+        /* Table Design */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 10px;
             font-size: 8.5pt;
         }
-        th, td {
-            padding: 5px 8px;
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid #f1f2f6;
-        }
         th {
-            background-color: #f8f9fa;
-            color: #2c3e50;
-            font-weight: bold;
-            border-bottom: 2px solid #dcdde1;
-            text-transform: uppercase;
+            background-color: #e2e8f0;
+            color: #1e293b;
+            text-align: left;
+            padding: 4px 8px;
             font-size: 8pt;
+            text-transform: uppercase;
         }
+        td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+        .day-tag {
+            font-weight: bold;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 7.5pt;
+            color: white;
+        }
+        .tag-blue { background-color: #3b82f6; }
+        .tag-purple { background-color: #8b5cf6; }
+        .tag-green { background-color: #10b981; }
 
-        /* Product Inventory List */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        /* Shopping Minimal Box */
+        .shop-box {
+            background-color: #ecfdf5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            padding: 8px;
             margin-bottom: 10px;
         }
-        .category-card {
-            background-color: #f8f9fa;
-            border: 1px solid #eaeaec;
-            border-radius: 4px;
-            padding: 8px;
-        }
-        .category-title {
+        .shop-title {
+            color: #047857;
             font-weight: bold;
-            color: #e08b97;
-            font-size: 8.5pt;
+            font-size: 9pt;
             margin-bottom: 4px;
             text-transform: uppercase;
         }
-        .category-card ul {
+        .shop-box ul {
             margin: 0;
-            padding-left: 14px;
-        }
-        .category-card li {
-            margin-bottom: 2px;
-        }
-
-        /* Shopping List */
-        .buy-box {
-            background-color: #eef9f5;
-            border: 1px dashed #2ecc71;
-            border-radius: 4px;
-            padding: 8px 12px;
-            margin-bottom: 12px;
-        }
-        .buy-box ul {
-            margin: 4px 0 0 0;
             padding-left: 16px;
         }
 
-        /* Routine Section */
-        .routine-container {
+        /* Inventory Compact Grid */
+        .inv-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        .routine-card {
-            border: 1px solid #dcdde1;
-            border-radius: 4px;
-            padding: 8px;
-        }
-        .routine-title {
-            font-weight: bold;
-            font-size: 9.5pt;
-            color: #ffffff;
-            background-color: #2c3e50;
-            padding: 4px 8px;
-            margin: -8px -8px 8px -8px;
-            border-radius: 3px 3px 0 0;
-            text-align: center;
-        }
-        .step {
-            margin-bottom: 6px;
-        }
-        .step-num {
-            font-weight: bold;
-            color: #e08b97;
-        }
-
-        /* Page Break Rule */
-        .page-break {
-            page-break-before: always;
-        }
-
-        /* Footer / Notes */
-        .footer-note {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
             font-size: 8pt;
-            color: #7f8c8d;
-            font-style: italic;
-            margin-top: 8px;
-            text-align: center;
         }
-        .badge {
-            display: inline-block;
-            padding: 1px 4px;
-            font-size: 7pt;
-            font-weight: bold;
-            border-radius: 2px;
+        .inv-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 6px;
+            border-radius: 4px;
+        }
+        .inv-card strong {
+            display: block;
+            color: #475569;
+            margin-bottom: 3px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 2px;
+            font-size: 7.5pt;
+            text-transform: uppercase;
+        }
+        .inv-card ul {
+            margin: 0;
+            padding-left: 12px;
+        }
+
+        .badge-buy {
+            background-color: #10b981;
             color: white;
-            background-color: #95a5a6;
+            font-size: 6.5pt;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-weight: bold;
         }
-        .badge-owned { background-color: #e08b97; }
-        .badge-buy { background-color: #2ecc71; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <div class="header">
-        <div>
-            <div class="title">Skincare Routine Personalizzata</div>
-            <div class="subtitle">Aggiornamento Project Pan & Controllo Sebo / Disidratazione</div>
-        </div>
-        <div class="meta-info">
-            Dossier Aggiornato<br>
-            Max 3-4 Passaggi
-        </div>
+    <!-- BANNER PER CARICO MENTALE RIDOTTO -->
+    <div class="audhd-banner">
+        <h1>Skincare Gaia — System Clean & Clear</h1>
+        <p>Obiettivo: Zero paralisi decisionale • Risolvere pelle che tira • Pori liberi</p>
     </div>
 
-    <!-- TARGET PELLE -->
-    <div class="target-box">
-        <strong>Analisi Tipo Pelle:</strong> Tendente al grasso, lucidità rapida, pori dilatati e punti neri, ma con <em>sensazione di pelle che tira dopo la detersione</em> (disidratazione/barriera cutanea da preservare).
-    </div>
-
-    <!-- INVENTARIO PRODOTTI RIMASTI -->
-    <h2>1. Inventario Prodotti In Tuo Possesso</h2>
-    <div class="grid-container">
-        <div class="category-card">
-            <div class="category-title">Detersione & Idratazione Base</div>
-            <ul>
-                <li><strong>COSRX</strong> Low pH Good Morning Gel Cleanser <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Garnier</strong> Salicylic Fresh & Matte Sorbetto <span class="badge badge-owned">Possesso</span></li>
-            </ul>
+    <!-- 3 REGOLE SALVA-CERVELLO -->
+    <div class="rules-grid">
+        <div class="rule-card">
+            <strong>1. REGOLA DEI 3 MINUTI</strong>
+            <span>Se sei stanca la sera: fai solo Detersione + Crema. Basta quello.</span>
         </div>
-        <div class="category-card">
-            <div class="category-title">Trattamenti Liquidi, Sieri & Occhi</div>
-            <ul>
-                <li><strong>Garnier</strong> Pure Active Liquid Peeling (7% Niacinamide + BHA) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Balea</strong> Hautrein Gesichts Wasser (Salicilico + Zinco) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Balea</strong> Beauty Collagen Retinol Serum <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Primark PS...</strong> Just Peachy Serum (Vit. C + Niacinamide) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Puca Pure & Care</strong> Eye Roll-On Serum <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Spa Exclusives</strong> Elysian Glow Under Eye Cream <span class="badge badge-owned">Possesso</span></li>
-            </ul>
+        <div class="rule-card">
+            <strong>2. ZERO DUBBI</strong>
+            <span>Non scegliere la maschera al momento: segui solo il giorno della settimana.</span>
         </div>
-        <div class="category-card">
-            <div class="category-title">Maschere Tessuto & Hydrogel</div>
-            <ul>
-                <li><strong>COSRX</strong> Advanced Snail Mucin Hydrogel Mask <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Biodance</strong> Refreshing Sea Kelp Real Deep Mask (Verde) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Biodance</strong> Bio Collagen Real Deep Mask (Rosa) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Chiringuito Coop</strong> Patch Contorno Occhi Hydrogel <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Chiringuito Coop</strong> Patch Punti Neri T-Zone <span class="badge badge-owned">Possesso</span></li>
-            </ul>
+        <div class="rule-card">
+            <strong>3. PELLE CHE TIRA?</strong>
+            <span>Usa solo acqua la mattina. Non sgrassare due volte di fila!</span>
         </div>
-        <div class="category-card">
-            <div class="category-title">Maschere Purificanti & Argilla</div>
-            <ul>
-                <li><strong>Beauty of Joseon</strong> Red Bean Refreshing Pore Mask <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Vichy</strong> Masque Charbon Detox Clarifiant <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>KIKO</strong> Black Clay Mask (Charcoal) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Revuele</strong> #Insta Magic Exfoliating Mask <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>SkinBliss</strong> Clay Stick Face Mask (Rose Water) <span class="badge badge-owned">Possesso</span></li>
-                <li><strong>Balea</strong> Peel-Off Aktivkohle Maske <span class="badge badge-owned">Possesso</span></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- ACQUISTI CONSIGLIATI -->
-    <h2>2. Integrazioni Essenziali Consigliate</h2>
-    <div class="buy-box">
-        <strong>Pochi prodotti chiave a piccolo budget per risolvere la pelle che tira e proteggere la barriera:</strong>
-        <ul>
-            <li><strong>Olio Struccante / Detergente Oleoso (Sera):</strong> <em>Nivea Olio Detergente</em> o <em>Clinians Olio Struccante</em> (~4-6€). Indispensabile per la doppia detersione serale: scioglie il sebo per affinità senza seccare.</li>
-            <li><strong>Protezione Solare Opacizzante SPF 50 (Mattina):</strong> <em>Nivea Sun UV Viso Controllo Sebo SPF 50</em> o <em>Revox B77 SPF 50</em> (~6-9€). FONDAMENTALE durante l'uso di Acido Salicilico e Retinolo.</li>
-        </ul>
     </div>
 
     <!-- ROUTINE QUOTIDIANA -->
-    <h2>3. Routine Quotidiana (Max 3-4 Passaggi)</h2>
-    <div class="routine-container">
+    <h2>☀️ / 🌙 Routine Fissa Quotidiana (Max 3-4 Passaggi)</h2>
+    <div class="routine-grid">
         
         <!-- MATTINA -->
-        <div class="routine-card">
-            <div class="routine-title">☀️ MATTINA (Controllo Sebo)</div>
-            <div class="step">
-                <span class="step-num">1. Detersione:</span> Sola acqua tiepida (se la pelle tira) oppure un pizzico di COSRX Low pH Gel Cleanser.
-            </div>
-            <div class="step">
-                <span class="step-num">2. Siero:</span> Primark PS... Just Peachy Serum (Vitamina C + Niacinamide per opacizzare).
-            </div>
-            <div class="step">
-                <span class="step-num">3. Contorno Occhi:</span> Puca Pure & Care Eye Roll-On.
-            </div>
-            <div class="step">
-                <span class="step-num">4. Idratazione / Protezione:</span> Garnier Salicylic Sorbetto oppure Protezione Solare SPF 50 opacizzante.
+        <div class="routine-box am">
+            <div class="routine-title">☀️ MATTINA (Sveglia & Opacizza)</div>
+            <div class="step-list">
+                <div class="step-item">
+                    <span class="step-number">1.</span>
+                    <strong>Lava:</strong> Solo acqua tiepida (o un goccio di COSRX Gel se ti senti unta).
+                </div>
+                <div class="step-item">
+                    <span class="step-number">2.</span>
+                    <strong>Siero:</strong> Primark PS... Just Peachy (Vitamina C + Niacinamide).
+                </div>
+                <div class="step-item">
+                    <span class="step-number">3.</span>
+                    <strong>Occhi:</strong> Puca Roll-On freddo.
+                </div>
+                <div class="step-item">
+                    <span class="step-number">4.</span>
+                    <strong>Crema:</strong> Garnier Salicylic Sorbetto (o Protezione Solare SPF 50).
+                </div>
             </div>
         </div>
 
         <!-- SERA BASE -->
-        <div class="routine-card">
-            <div class="routine-title">🌙 SERA (Base Fissa)</div>
-            <div class="step">
-                <span class="step-num">1. Detersione:</span> Doppia detersione (Olio struccante + risciacquo con COSRX Gel Cleanser).
-            </div>
-            <div class="step">
-                <span class="step-num">2. Contorno Occhi:</span> Spa Exclusives Under Eye Cream.
-            </div>
-            <div class="step">
-                <span class="step-num">3 & 4. Trattamento + Crema:</span> Vedi rotazione serale sottostante.
+        <div class="routine-box pm">
+            <div class="routine-title">🌙 SERA (Pulizia & Riparazione)</div>
+            <div class="step-list">
+                <div class="step-item">
+                    <span class="step-number">1.</span>
+                    <strong>Doppia Detersione:</strong> Olio Struccante poi risciacqua con COSRX Gel.
+                </div>
+                <div class="step-item">
+                    <span class="step-number">2.</span>
+                    <strong>Occhi:</strong> Spa Exclusives Cream.
+                </div>
+                <div class="step-item">
+                    <span class="step-number">3.</span>
+                    <strong>Trattamento:</strong> Vedi tabella sotto (cambia in base al giorno).
+                </div>
+                <div class="step-item">
+                    <span class="step-number">4.</span>
+                    <strong>Sigilla:</strong> Garnier Salicylic Sorbetto.
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- ROTAZIONE SERALE TRATTAMENTI -->
-    <h2>4. Rotazione Trattamenti Serali (Passaggi 3 e 4)</h2>
+    <!-- ROTAZIONE SERALE -->
+    <h2>📅 Programma Serale (Cosa mettere allo Step 3)</h2>
     <table>
         <thead>
             <tr>
-                <th style="width: 25%;">Giorni</th>
-                <th style="width: 35%;">Passaggio 3 (Siero / Attivo)</th>
-                <th style="width: 40%;">Passaggio 4 (Idratazione)</th>
+                <th>Giorno</th>
+                <th>Step 3: Trattamento Serale</th>
+                <th>Azione Principale</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><strong>Lun / Mer / Ven</strong><br><em>(Pori & Punti Neri)</em></td>
-                <td><strong>Garnier Pure Active Liquid Peeling</strong><br>(Picchiettato con dischetto sulla Zona T)</td>
-                <td><strong>Garnier Salicylic Sorbetto</strong></td>
+                <td><span class="day-tag tag-blue">LUN / MER / VEN</span></td>
+                <td><strong>Garnier Pure Active Peeling Liquido</strong> (Acido Salicilico)</td>
+                <td>Scioglie i punti neri e libera i pori nella Zona T.</td>
             </tr>
             <tr>
-                <td><strong>Mar / Gio</strong><br><em>(Texture & Anti-Età)</em></td>
-                <td><strong>Balea Beauty Collagen Retinol Serum</strong></td>
-                <td><strong>Garnier Salicylic Sorbetto</strong></td>
+                <td><span class="day-tag tag-purple">MAR / GIO</span></td>
+                <td><strong>Balea Retinol Serum</strong> (Retinolo + Collagene)</td>
+                <td>Rigenera la pelle e affina la grana.</td>
             </tr>
             <tr>
-                <td><strong>Sab / Dom</strong><br><em>(Riposo Barriera)</em></td>
-                <td><strong>Balea Hautrein Gesichts Wasser</strong><br>(opzionale, o salta direttamente alla crema)</td>
-                <td><strong>Garnier Salicylic Sorbetto</strong><br>(Strato più generoso per nutrire)</td>
+                <td><span class="day-tag tag-green">SAB / DOM</span></td>
+                <td><strong>Balea Tonico Gesichts Wasser</strong> (oppure Salta allo Step 4)</td>
+                <td>Riposo totale della barriera cutanea.</td>
             </tr>
         </tbody>
     </table>
 
     <!-- CALENDARIO MASCHERE -->
-    <h2>5. Piano Settimanale Maschere & Trattamenti Extra</h2>
+    <h2>🎭 Calendario Maschere Extra (Fallo solo se hai energia!)</h2>
     <table>
         <thead>
             <tr>
-                <th style="width: 20%;">Giorno</th>
-                <th style="width: 45%;">Tipologia & Prodotto Consigliato</th>
-                <th style="width: 35%;">Note d'Uso</th>
+                <th>Quando</th>
+                <th>Quale Maschera Usare</th>
+                <th>Come usarla in modo facile</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><strong>Lunedì</strong></td>
-                <td><strong>Chiringuito Patch Punti Neri T-Zone</strong> + Patch Occhi Coop</td>
-                <td>Solo su naso/mento. Non usare acidi liquidi dopo i patch.</td>
+                <td><strong>Patch Punti Neri T-Zone</strong> + Patch Occhi Coop</td>
+                <td>Applica su naso/mento mentre guardi una puntata TV.</td>
             </tr>
             <tr>
                 <td><strong>Mercoledì</strong></td>
-                <td><strong>Beauty of Joseon Red Bean Mask</strong><br><em>(in alternativa Vichy Charbon o KIKO Black Clay)</em></td>
-                <td>Maschera all'argilla purificante. Risciacquare prima che si secchi completamente per non far tirare la pelle.</td>
+                <td><strong>Beauty of Joseon Red Bean</strong> (Argilla)</td>
+                <td>Risciacqua *prima* che diventi completamente secca/croccante.</td>
             </tr>
             <tr>
                 <td><strong>Venerdì</strong></td>
-                <td><strong>COSRX Snail Mucin Hydrogel Mask</strong><br><em>(in alternativa Biodance Verde)</em></td>
-                <td>Idratazione profonda e azione lenitiva per ripristinare la barriera.</td>
+                <td><strong>COSRX Snail Mucin Hydrogel</strong> (o Biodance Verde)</td>
+                <td>Coccola idratante. Lascia la pelle morbidissima.</td>
             </tr>
             <tr>
                 <td><strong>Domenica</strong></td>
-                <td><strong>Biodance Bio Collagen Real Deep Mask (Rosa)</strong></td>
-                <td>Maschera idratante notturna/prolungata per compattare i pori e nutrire.</td>
+                <td><strong>Biodance Bio Collagen Real Deep Mask</strong> (Rosa)</td>
+                <td>Maschera notte/lunga posa per iniziare la settimana al top.</td>
             </tr>
         </tbody>
     </table>
 
-    <div class="footer-note">
-        *Nota: Le altre maschere purificanti (Revuele, SkinBliss Stick, Balea Peel-Off) potrai ruotarle il mercoledì sera una volta terminate quelle principali.
+    <!-- SOLO 2 ACQUISTI -->
+    <h2>🛒 2 Soli Acquisti Necessari (Zero Stress)</h2>
+    <div class="shop-box">
+        <div class="shop-title">Mancano solo 2 tasselli per completare il sistema:</div>
+        <ul>
+            <li><strong>Olio Struccante (Sera):</strong> Nivea Olio Detergente o Clinians (~5€) <span class="badge-buy">FONDAMENTALE</span> per non far tirare la pelle.</li>
+            <li><strong>SPF 50 Opacizzante (Mattina):</strong> Nivea Sun UV Viso Controllo Sebo SPF 50 (~8€) per proteggere dai trattamenti attivi.</li>
+        </ul>
+    </div>
+
+    <!-- INVENTARIO COMPATTO -->
+    <h2>📦 Inventario Completo Prodotti Già in Tuo Possesso</h2>
+    <div class="inv-grid">
+        <div class="inv-card">
+            <strong>Detersione & Base</strong>
+            <ul>
+                <li>COSRX Low pH Gel</li>
+                <li>Garnier Sorbetto</li>
+            </ul>
+        </div>
+        <div class="inv-card">
+            <strong>Sieri & Liquidi</strong>
+            <ul>
+                <li>Garnier Liquid Peeling</li>
+                <li>Balea Retinol Serum</li>
+                <li>Primark Peachy Serum</li>
+                <li>Balea Tonico Zinco</li>
+                <li>Puca Eye Roll-On</li>
+                <li>Spa Exclusives Cream</li>
+            </ul>
+        </div>
+        <div class="inv-card">
+            <strong>Maschere Tessuto</strong>
+            <ul>
+                <li>COSRX Snail Hydrogel</li>
+                <li>Biodance Verde (Kelp)</li>
+                <li>Biodance Rosa (Collagen)</li>
+                <li>Patch Occhi Coop</li>
+                <li>Patch Punti Neri Coop</li>
+            </ul>
+        </div>
+        <div class="inv-card">
+            <strong>Maschere Argilla</strong>
+            <ul>
+                <li>Beauty of Joseon Red Bean</li>
+                <li>Vichy Charbon Detox</li>
+                <li>KIKO Black Clay</li>
+                <li>Revuele Insta Magic</li>
+                <li>SkinBliss Clay Stick</li>
+                <li>Balea Peel-Off</li>
+            </ul>
+        </div>
     </div>
 
 </body>
